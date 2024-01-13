@@ -16,15 +16,18 @@ export default function Board() {
 
   function handleClick(i){
     const nextSquares = squares.slice();
-    if (xIsNext) {
-      nextSquares[i] = "X"
-    }
-    else {
-      nextSquares[i] = "O"
+    if (!nextSquares[i]){
+      if (xIsNext) {
+        nextSquares[i] = "X"
+      }
+      else {
+        nextSquares[i] = "O"
+      }
+      
+      setSquares(nextSquares);
+      setXIsNext(!xIsNext)
     }
     
-    setSquares(nextSquares);
-    setXIsNext(!xIsNext)
   }
 
   return (
