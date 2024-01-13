@@ -15,7 +15,7 @@ export default function Board() {
   const [squares, setSquares] = useState(Array(9).fill(null));
 
   function handleClick(i){
-    if (squares[i]){
+    if (squares[i] || calculateWinner(squares)){
       return;
     }
     const nextSquares = squares.slice();
@@ -49,4 +49,32 @@ export default function Board() {
       </div>
     </>
   );
+}
+
+
+function calculateWinner(squares){
+  const horizontal1 = [0,1,2];
+  const horizontal2 = [3,4,5];
+  const horizontal3 = [6,7,8];
+  
+  const vertical1 = [0,3,6];
+  const vertical2 = [1,4,7];
+  const vertical3 = [2,5,8];
+
+  const diag1 = [0,4,8];
+  const diag2 = [6,4,2];
+
+  const victorylines = [horizontal1, horizontal2, horizontal3, vertical1, vertical2, vertical3, diag1, diag2];
+
+  for (let line of victorylines){
+    const [a,b,c] = line
+      // If there is no empty box
+    if (squares[a] && squares[b] && squares[c]){
+      // If they have the same sign
+      if (squares[a]==squares[b] && squares[b]==squares[c]){
+        return squares[a];
+      }
+    }
+  }
+  return null;
 }
